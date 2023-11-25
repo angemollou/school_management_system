@@ -10,7 +10,7 @@ class PersonBase(models.AbstractModel):
 
     name = fields.Char(string='Name')
     date_of_birth = fields.Date(string='Date of birth')
-    age = fields.Float(string='Age', compute="_compute_age", readonly=False, store=True)
+    age = fields.Integer(string='Age', compute="_compute_age", readonly=False, store=True)
 
     @api.depends("date_of_birth")
     def _compute_age(self):

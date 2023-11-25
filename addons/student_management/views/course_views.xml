@@ -1,6 +1,6 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
+    <!-- explicit views definition -->
 
     <record model="ir.ui.view" id="course_view_tree">
       <field name="name">Courses</field>
@@ -13,6 +13,24 @@
       </field>
     </record>
 
+    <record id="course_view_form" model="ir.ui.view">
+      <field name="name">Course</field>
+      <field name="model">student_management.course</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name" />
+              <field name="description" />
+            </group>
+            <group>
+              <field name="teacher_id" />
+              <field name="average_age" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
 

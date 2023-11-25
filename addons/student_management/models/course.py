@@ -1,12 +1,40 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+import statistics
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class Course(models.Model):
     _name = "student_management.course"
     _description = "student_management.course"
 
-    name = fields.Char(string='Name')
-    description = fields.Text(string='Description')
-    teacher_id = fields.Many2one(string="Teacher", comodel_name='student_management.teacher')
+    name = fields.Char(string="Name")
+    description = fields.Text(string="Description")
+    teacher_id = fields.Many2one(
+        string="Teacher", comodel_name="student_management.teacher"
+    )
+    average_age = fields.Float(
+        string="Average age of students", compute="_compute_average_age_of_students"
+    )
+
+    def _compute_average_age_of_students(self):
+        self.env.cr.execute(
+            """
+            SELECT sc_rel.student_management_course_id, avg(st.age)
+            FROM student_management_course_student_management_student_rel sc_rel
+            LEFT JOIN student_management_student st ON sc_rel.student_management_student_id = st.id
+            WHERE sc_rel.student_management_course_id IN %s
+            GROUP BY sc_rel.student_management_course_id
+            """,
+            [tuple(self.ids)],
+        )
+        course_data = dict(self.env.cr.fetchall())  # {id: avg}
+        for course in self:
+            course.average_age = course_data.get(course.id, 0)
+
+    @api.constrains("teacher_id")
+    def _check_teacher_id(self):
+        for course in self:
+            if not course.teacher_id:
+                raise ValidationError(_("A teacher must be assigned"))

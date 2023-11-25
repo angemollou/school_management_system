@@ -9,6 +9,8 @@ class Student(models.Model):
     _description = "student_management.student"
     _inherit = "student_management.person.base"
 
+    course_ids = fields.Many2many('student_management.course', string='Courses')
+
     # TODO basic (CRUD) operations existing
     # by default are create(),read(),write(),unlink()
     # Don't need to override some of them for now
