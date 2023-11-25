@@ -10,7 +10,7 @@ services:
       - daysum-odoo-web-data:/var/lib/odoo
       - ./odoo.conf:/etc/odoo/odoo.conf
       - ./addons/:/mnt/extra-addons
-    command: [odoo, -d, test, --dev, xml]
+    command: [odoo, -d, test, --dev, xml, -u, student_management]
     depends_on:
       - db
   db:
