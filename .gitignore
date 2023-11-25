@@ -1,0 +1,6 @@
+**/.env
+**/odoo.conf
+community
+.vscode
+.devcontainer
+.DS_Store

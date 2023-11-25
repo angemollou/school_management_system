@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  web:
+    container_name: daysum-odoo-web
+    platform: linux/x86_64
+    image: odoo:16.0
+    ports:
+      - "80:8069"
+    volumes:
+      - daysum-odoo-web-data:/var/lib/odoo
+      - ./odoo.conf:/etc/odoo/odoo.conf
+      - ./addons/:/mnt/extra-addons
+    command: [odoo, -d, test, --dev, xml]
+    depends_on:
+      - db
+  db:
+    container_name: daysum-odoo-db
+    image: postgres:15.0
+    env_file:
+      - ./.env
+    volumes:
+      - daysum-odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  daysum-odoo-web-data:
+  daysum-odoo-db-data:
