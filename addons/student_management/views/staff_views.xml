@@ -22,10 +22,12 @@
             <group>
               <group string="Personal information">
                 <field name="name" />
+                <field name="email" />
                 <field name="date_of_birth" />
                 <field name="age" />
               </group>
               <group string="School">
+                <field name="user_id" />
                 <field name="currency_id" invisible="True" />
                 <field name="position" />
                 <field name="wage" widget='monetary' options="{'currency_field': 'currency_id'}" />

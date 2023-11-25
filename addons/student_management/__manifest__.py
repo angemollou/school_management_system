@@ -14,7 +14,7 @@
     "website": "https://daysum.net",
     "category": "Services/School",
     "version": "16.0.0.1",
-    "depends": ["base"],
+    "depends": ["base", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "views/teacher_views.xml",

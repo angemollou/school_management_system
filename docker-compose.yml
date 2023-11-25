@@ -6,6 +6,8 @@ services:
     image: odoo:16.0
     ports:
       - "80:8069"
+    environment:
+      - PYTHONUNBUFFERED=1
     volumes:
       - daysum-odoo-web-data:/var/lib/odoo
       - ./odoo.conf:/etc/odoo/odoo.conf
