@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+    <!-- explicit view definition -->
+
+    <record model="ir.ui.view" id="staff_view_tree">
+      <field name="name">Staff</field>
+      <field name="model">student_management.staff</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="course_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="staff_view_form" model="ir.ui.view">
+      <field name="name">Staff</field>
+      <field name="model">student_management.staff</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group string="Personal information">
+                <field name="name" />
+                <field name="date_of_birth" />
+                <field name="age" />
+              </group>
+              <group string="School">
+                <field name="currency_id" invisible="True" />
+                <field name="position" />
+                <field name="wage" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                <field name="course_ids" widget="many2many_tags" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="staff_action">
+      <field name="name">Staff window</field>
+      <field name="res_model">student_management.staff</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- actions -->
+
+    <menuitem name="Staff" id="staff_menu" parent="student_management.menu_root"
+      action="student_management.staff_action" />
+
+  </data>
+</odoo>

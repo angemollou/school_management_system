@@ -20,6 +20,7 @@
         'views/teacher_views.xml',
         'views/student_views.xml',
         'views/course_views.xml',
+        'views/staff_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

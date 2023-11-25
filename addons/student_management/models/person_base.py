@@ -6,11 +6,13 @@ from odoo import _, api, fields, models
 class PersonBase(models.AbstractModel):
     _name = "student_management.person.base"
     _description = "Basic Person"
-    _order = 'name'
+    _order = "name"
 
-    name = fields.Char(string='Name')
-    date_of_birth = fields.Date(string='Date of birth')
-    age = fields.Integer(string='Age', compute="_compute_age", readonly=False, store=True)
+    name = fields.Char(string="Name")
+    date_of_birth = fields.Date(string="Date of birth")
+    age = fields.Integer(
+        string="Age", compute="_compute_age", readonly=False, store=True
+    )
 
     @api.depends("date_of_birth")
     def _compute_age(self):
@@ -18,3 +20,9 @@ class PersonBase(models.AbstractModel):
             if record.date_of_birth:
                 delta_day = (fields.Date.today() - record.date_of_birth).days
                 record.age = int(delta_day / 365.25)
+
+    # TODO What about user set age manually after setting date of birth
+    # @api.onchange("age")
+    # def _onchange_date_begin(self):
+    #     if self.age:
+    #         self.date_of_birth = False

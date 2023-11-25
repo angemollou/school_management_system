@@ -8,6 +8,7 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name" />
+          <field name="course_ids" widget="many2many_tags" options="{'no_create_edit': True}" />
         </tree>
       </field>
     </record>
@@ -22,8 +23,8 @@
               <field name="name" />
             </group>
             <group>
-              <field name="age" />
               <field name="date_of_birth" />
+              <field name="age" />
             </group>
             <notebook>
               <page name="course" string="Courses">

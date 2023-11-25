@@ -40,10 +40,6 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Top menu item -->
-
-    <menuitem name="Student Management" id="menu_root" />
-
     <!-- actions -->
 
     <menuitem name="Courses" id="course_menu" parent="student_management.menu_root"

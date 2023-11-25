@@ -12,11 +12,15 @@ class Course(models.Model):
     name = fields.Char(string="Name")
     description = fields.Text(string="Description")
     teacher_id = fields.Many2one(
-        string="Teacher", comodel_name="student_management.teacher"
+        string="Teacher",
+        comodel_name="student_management.teacher",
+        required=True,
+        ondelete="restrict",
     )
     average_age = fields.Float(
         string="Average age of students", compute="_compute_average_age_of_students"
     )
+    staff_id = fields.Many2one(string="Staff", comodel_name="student_management.staff")
 
     def _compute_average_age_of_students(self):
         self.env.cr.execute(
@@ -32,9 +36,3 @@ class Course(models.Model):
         course_data = dict(self.env.cr.fetchall())  # {id: avg}
         for course in self:
             course.average_age = course_data.get(course.id, 0)
-
-    @api.constrains("teacher_id")
-    def _check_teacher_id(self):
-        for course in self:
-            if not course.teacher_id:
-                raise ValidationError(_("A teacher must be assigned"))
