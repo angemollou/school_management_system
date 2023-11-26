@@ -31,20 +31,6 @@ class PersonBase(models.AbstractModel):
     #     if self.age:
     #         self.date_of_birth = False
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        people = super().create(vals_list)
-        for person in people:
-            if not person.user_id:
-                person.user_id = self.env["res.users"].create(
-                    {
-                        "login": person.email
-                        or f"{person.name.replace(' ', '.').lower()}@example.com",
-                        "name": person.name,
-                    }
-                )
-        return people
-
     def notify(self, msg=""):
         self.ensure_one()
         bot = self.env.ref("base.partner_root")

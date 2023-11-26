@@ -11,7 +11,7 @@ class Student(models.Model):
 
     course_ids = fields.Many2many("student_management.course", string="Courses")
 
-    # TODO basic (CRUD) operations existing
+    # basic (CRUD) operations existing
     # by default are create(),read(),write(),unlink()
     # Don't need to override some of them for now
 
@@ -27,15 +27,11 @@ class Student(models.Model):
     @api.onchange("course_ids")
     def _onchange_course_ids(self):
         if self.ids:
-            print("------------------------>_onchange_course_ids")
             db_course_ids = self.browse(self.ids[0]).course_ids.ids
             ui_course_ids = self.course_ids.ids
-            print("db_course_ids: ", db_course_ids)
-            print("ui_course_ids: ", ui_course_ids)
             new_courses = set(ui_course_ids) - set(db_course_ids)
             new_courses = self.env["student_management.course"].browse(new_courses)
             for course in new_courses:
                 course.teacher_id.notify(
                     f'{self.name} is enrolled in "{course.name}" course.'
                 )
-            print("------------------------<_onchange_course_ids")

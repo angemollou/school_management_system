@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import SUPERUSER_ID, tools
+from odoo import tools
 from odoo.tests.common import TransactionCase, tagged
 
 
