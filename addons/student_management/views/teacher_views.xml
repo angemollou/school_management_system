@@ -35,6 +35,16 @@
       </field>
     </record>
 
+    <record id="teacher_view_search" model="ir.ui.view">
+      <field name="name">Teacher</field>
+      <field name="model">student_management.teacher</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name" filter_domain="[('name', 'ilike', self)]" />
+        </search>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="teacher_action">
